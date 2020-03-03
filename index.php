@@ -1,5 +1,30 @@
 <?php
 @include_once('app/templates/bovenstuk.php');
+
+try {
+    // Proberen we de code uit
+
+   // Stap 1. Connectie met de database
+   $db_connection = new PDO(
+           'mysql:host=localhost;dbname=forum_klas1',
+      'root',
+      'root'
+   );
+
+   // Stap 2. SQL-opdracht samenstellen
+   $sql = 'SELECT * FROM threads';
+
+   // Stap 3. SQL-opdracht naar de DB-server sturen
+   $db_statement = $db_connection->prepare($sql);
+   $db_statement->execute();
+
+   // Stap 4. ResultSet opvragen bij de DB-server
+   $threads = $db_statement->fetchAll(PDO::FETCH_ASSOC);
+
+} catch(PDOException $error) {
+    // Fout is hier opgevangen en ik bepaal wat
+    // we nu gaan doen met deze fout
+}
 ?>
 
 <!-- BEGIN PAGINA CONTAINER -->
@@ -13,6 +38,7 @@
                </span>
                <div class="collection">
 
+               <?php foreach($threads as $thread): ?>
                   <!-- BEGIN VAN EEN THREAD -->
                   <a href="thread.html" class="collection-item avatar collection-link">
                      <img src="img/icon-php.png" alt="" class="circle">
@@ -20,8 +46,12 @@
                         <div class="col s9">
                            <div class="row last-row">
                               <div class="col s12">
-                                 <span class="title">PHP</span>
-                                 <p>Eerste paar regels van het nieuwste bericht en door wie en wanneer</p>
+                                 <span class="title">
+                                     <?php echo $thread['title']; ?>
+                                 </span>
+                                 <p>
+                                     <?php echo substr($thread['content'],0,200) . '....' ?>
+                                 </p>
                               </div>
                            </div>
                            <div class="row last-row">
@@ -35,7 +65,7 @@
                      </div>
                   </a>
                   <!-- EINDE VAN EEN THREAD -->
-
+                <?php endforeach; ?>
                </div>
             </div>
          </div>
