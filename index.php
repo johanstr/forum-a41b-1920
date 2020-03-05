@@ -1,34 +1,19 @@
 <?php
 @include_once('app/templates/bovenstuk.php');
+@include_once('app/database/db.php');
 
-try {
-    // Proberen we de code uit
-
-   // Stap 1. Connectie met de database
-   $db_connection = new PDO(
-           'mysql:host=localhost;dbname=forum_klas1',
-      'root',
-      'root'
-   );
-
-   // Stap 2. SQL-opdracht samenstellen
+if(dbConnect())
+{
    $sql = 'SELECT threads.*, users.username, COUNT(topics.id) AS AantalTopics
             FROM threads
             INNER JOIN users ON users.id = threads.user_id
             INNER JOIN topics ON topics.thread_id = threads.id
             GROUP BY threads.id';
 
-   // Stap 3. SQL-opdracht naar de DB-server sturen
-   $db_statement = $db_connection->prepare($sql);
-   $db_statement->execute();
-
-   // Stap 4. ResultSet opvragen bij de DB-server
-   $threads = $db_statement->fetchAll(PDO::FETCH_ASSOC);
-
-} catch(PDOException $error) {
-    // Fout is hier opgevangen en ik bepaal wat
-    // we nu gaan doen met deze fout
+   dbQuery($sql);
+   $threads = dbGetAll();
 }
+
 ?>
 
 <!-- BEGIN PAGINA CONTAINER -->
