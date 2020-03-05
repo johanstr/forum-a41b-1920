@@ -12,7 +12,11 @@ try {
    );
 
    // Stap 2. SQL-opdracht samenstellen
-   $sql = 'SELECT * FROM threads';
+   $sql = 'SELECT threads.*, users.username, COUNT(topics.id) AS AantalTopics
+            FROM threads
+            INNER JOIN users ON users.id = threads.user_id
+            INNER JOIN topics ON topics.thread_id = threads.id
+            GROUP BY threads.id';
 
    // Stap 3. SQL-opdracht naar de DB-server sturen
    $db_statement = $db_connection->prepare($sql);
@@ -55,12 +59,15 @@ try {
                               </div>
                            </div>
                            <div class="row last-row">
-                              <div class="col s12 post-timestamp">Moderator: SMN</div>
+                              <div class="col s12 post-timestamp">
+                                 Moderator:
+                                 <?php echo $thread['username']; ?>
+                              </div>
                            </div>
                         </div>
                         <div class="col s3">
                            <h6 class="title center-align">Statistieken</h6>
-                           <p class="center-align">26 topics</p>
+                           <p class="center-align"> <?php echo $thread['AantalTopics']; ?> topics</p>
                         </div>
                      </div>
                   </a>
