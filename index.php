@@ -1,4 +1,5 @@
 <?php
+//dit is commentaar van Ids
 @include_once('app/templates/bovenstuk.php');
 @include_once('app/database/db.php');
 
