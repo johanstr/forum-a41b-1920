@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 session_start();
+=======
+//dit is commentaar van Ids
+>>>>>>> d06947328652b1f4449bfdaebfb19da25f68e882
 @include_once('app/templates/bovenstuk.php');
 @include_once('app/database/db.php');
 
