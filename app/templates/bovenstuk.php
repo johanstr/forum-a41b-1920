@@ -1,3 +1,11 @@
+<?php
+session_start();
+$username = '';
+if(isset($_SESSION['username']))
+{
+    $username = $_SESSION['username'];
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -57,7 +65,7 @@
                 <ul id="theme-menu" class="dropdown-content">
                     <li><a href="profile.html">Profiel</a></li>
                     <li><a href="dashboard.html">Beheer</a></li>
-                    <li><a href="logout.html">Afmelden</a></li>
+                    <li><a href="app/login/logout.php">Afmelden</a></li>
                 </ul>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="index.html">Home</a></li>
@@ -65,7 +73,12 @@
                     <li><a href="login.html">Aanmelden</a></li>
                     <li>
                         <a href="/" data-activates="theme-menu" class="dropdown-button">
-                            <img src="http://www.gravatar.com/avatar/fc7d81525f7040b7e34b073f0218084d?s=20" alt="" class="square"> Username &dtrif;
+                            <img src="http://www.gravatar.com/avatar/fc7d81525f7040b7e34b073f0218084d?s=20" alt="" class="square">
+                            <?php
+                                if(!empty($username)){
+                                    echo $username;
+                                }
+                            ?> &dtrif;
                         </a>
                     </li>
                 </ul>

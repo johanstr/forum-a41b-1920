@@ -51,3 +51,26 @@ function dbGetAll()
 
    return $db_statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+/*
+ * dbGet
+ * Haal 1 record uit de ResultSet van de DB
+ */
+function dbGet()
+{
+   global $db_statement;
+
+   return $db_statement->fetch(PDO::FETCH_ASSOC);
+
+}
+
+/*
+ * dbCount()
+ * Telt hoeveel records er in de ResultSet
+ */
+function dbCount()
+{
+   global $db_statement;
+
+   return $db_statement->rowCount();
+}

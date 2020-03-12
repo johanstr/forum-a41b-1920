@@ -1,4 +1,5 @@
 <?php
+session_start();
 @include_once('app/templates/bovenstuk.php');
 @include_once('app/database/db.php');
 
@@ -29,7 +30,7 @@ if(dbConnect())
 
                <?php foreach($threads as $thread): ?>
                   <!-- BEGIN VAN EEN THREAD -->
-                  <a href="thread.html" class="collection-item avatar collection-link">
+                  <a href="thread.php?id=<?php echo $thread['id']; ?>" class="collection-item avatar collection-link">
                      <img src="img/icon-php.png" alt="" class="circle">
                      <div class="row">
                         <div class="col s9">
